@@ -1,1 +1,4 @@
 window.facebookAdCanary.setupAd
+*.pandora.com/*registerad*
+*.pandora.com/*getadmetadata*
+*.pandora.com/*/ads/*

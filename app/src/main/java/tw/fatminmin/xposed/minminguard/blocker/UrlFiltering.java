@@ -4,6 +4,8 @@ import static de.robv.android.xposed.XposedHelpers.findClass;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.view.View;
 import de.robv.android.xposed.XC_MethodHook;
@@ -90,7 +92,9 @@ public final class UrlFiltering {
         Util.log(packageName, packageName + " url:\n" + url);
 
         for(String adUrl : Main.patterns) {
-            if(url.contains(adUrl)) {
+            Pattern p = Pattern.compile(adUrl);
+            Matcher m = p.matcher(url);
+            if(url.contains(adUrl) || m.matches()) {
                 Util.log(packageName, "Detect " + packageName + " load url from " + adUrl);
                 param.setResult(new Object());
                 Main.removeAdView((View) param.thisObject, packageName, true);
