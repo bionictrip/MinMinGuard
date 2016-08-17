@@ -1,5 +1,8 @@
 package tw.fatminmin.xposed.minminguard;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
@@ -123,6 +126,22 @@ public class Main implements IXposedHookZygoteInit,
         for(String url : sUrls) {
             patterns.add(url);
         }
+        try
+        {
+            File f = new File("mmg_pattern");
+            Util.log("tw.fatminmin.xposed.minminguard", "pattern file: " + f.getCanonicalPath());
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while((line = br.readLine()) != null)
+            {
+                patterns.add(line);
+            }
+            br.close();
+        } catch (Exception e) {
+        e.printStackTrace();
+    }
+
 
         notifyWorker = Executors.newSingleThreadExecutor();
     }

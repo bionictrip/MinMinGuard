@@ -92,9 +92,8 @@ public final class UrlFiltering {
         Util.log(packageName, packageName + " url:\n" + url);
 
         for(String adUrl : Main.patterns) {
-            Pattern p = Pattern.compile(adUrl);
-            Matcher m = p.matcher(url);
-            if(url.contains(adUrl) || m.matches()) {
+            Util.log(packageName, "adUrl: " + adUrl);
+            if(url.contains(adUrl)) {
                 Util.log(packageName, "Detect " + packageName + " load url from " + adUrl);
                 param.setResult(new Object());
                 Main.removeAdView((View) param.thisObject, packageName, true);
